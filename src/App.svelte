@@ -1,12 +1,17 @@
 <script>
-  import Renderer from "./components/Renderer.svelte";
-
+  import { setContext } from "svelte";
+  import RendererMainFrame from "./components/RendererMainFrame.svelte";
   export let projectId;
   export let figmaToken;
 
+  setContext("figma-api", {
+    projectId,
+    figmaToken,
+  });
+
   async function fetchFigmaAPI() {
     const response = await self.fetch(
-      `https://api.figma.com/v1/files/${projectId}`,
+      `https://api.figma.com/v1/files/${projectId}?geometry=paths`,
       {
         headers: {
           "X-Figma-Token": figmaToken,
@@ -29,7 +34,17 @@
   {#await promise}
     <p>Loading...</p>
   {:then data}
-    <Renderer {data} {projectId} {figmaToken} />
+    <RendererMainFrame {data} CANVAS_ID={0} FRAME_ID={0} />
+    <!-- Render all frame -->
+    <!-- {#each data.document.children as canvas, canvasId}
+      {#each canvas.children as frame, frameId}
+        {#if frame.type === "FRAME"}
+          <div style="padding-top: 50px;">
+            <RendererMainFrame {data} CANVAS_ID={canvasId} FRAME_ID={frameId} />
+          </div>
+        {/if}
+      {/each}
+    {/each} -->
   {:catch error}
     {error}
   {/await}
@@ -38,10 +53,11 @@
 <style>
   main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     margin: auto;
   }
 
