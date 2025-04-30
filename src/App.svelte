@@ -1,7 +1,7 @@
 <script>
   import { setContext } from "svelte";
   import RendererMainFrame from "./components/RendererMainFrame.svelte";
-  /** @type {{projectId: any, figmaToken: any}} */
+  /** @type {{projectId: string, figmaToken: string}} */
   let { projectId, figmaToken } = $props();
 
   setContext("figma-api", {
@@ -14,7 +14,7 @@
       `https://api.figma.com/v1/files/${projectId}?geometry=paths`,
       {
         headers: {
-          "X-Figma-Token": figmaToken,
+          "X-FIGMA-TOKEN": figmaToken,
         },
       },
     );
@@ -23,7 +23,7 @@
       let x = response.json();
       return x;
     } else {
-      return new Error("wtf");
+      return new Error(response.statusText);
     }
   }
 
