@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   export function getColor(color) {
     return `rgba(${color.r * 255}, ${color.g * 255}, ${color.b * 255}, ${
       color.a

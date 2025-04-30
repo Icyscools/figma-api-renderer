@@ -1,10 +1,12 @@
 <script>
+  import RendererType from "./RendererType.svelte";
   import { getContext } from "svelte";
   import RendererBox from "./RendererBox.svelte";
   import RendererText from "./RendererText.svelte";
   import RendererVector from "./RendererVector.svelte";
 
-  export let data;
+  /** @type {{data: any}} */
+  let { data } = $props();
 
   const { getMainFrameBoundingBox } = getContext("main-frame");
   const { x, y, width, height } = data.absoluteBoundingBox;
@@ -13,7 +15,7 @@
 
 {#if data.type === "GROUP" || data.type === "FRAME"}
   {#each data.children as child}
-    <svelte:self data={{ opacity: data.opacity, ...child }} />
+    <RendererType data={{ opacity: data.opacity, ...child }} />
   {/each}
 {:else if data.type === "TEXT"}
   <RendererBox {data}>

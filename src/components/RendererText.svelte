@@ -1,6 +1,7 @@
 <script>
   import { getColor, getGradientColor } from "../utils/colors.svelte";
-  export let data;
+  /** @type {{data: any}} */
+  let { data } = $props();
 
   // console.group("TEXT");
   // console.log(data);
@@ -12,7 +13,7 @@
       return `color: ${getColor(fill.color)};`;
     } else if (fill.type === "GRADIENT_LINEAR") {
       return `background: ${getGradientColor(
-        fill.gradientStops
+        fill.gradientStops,
       )};-webkit-background-clip: text;-webkit-text-fill-color: transparent;`;
     }
     return ``;

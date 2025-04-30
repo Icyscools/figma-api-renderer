@@ -1,7 +1,8 @@
 <script>
   import { getContext } from "svelte";
 
-  export let data;
+  /** @type {{data: any}} */
+  let { data } = $props();
 
   // console.group("IMAGE");
   // console.log(data);
@@ -19,7 +20,7 @@
           headers: {
             "X-Figma-Token": figmaToken,
           },
-        }
+        },
       );
       if (image.ok) {
         let imageData = await image.json();
@@ -38,7 +39,7 @@
 {#await promise}
   <p>Loading...</p>
 {:then data}
-  <!-- svelte-ignore a11y-missing-attribute -->
+  <!-- svelte-ignore a11y_missing_attribute -->
   <img class="img" src={data} />
 {:catch error}
   {error}

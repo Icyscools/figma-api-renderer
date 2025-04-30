@@ -3,7 +3,8 @@
   import { getColor, getGradientColor } from "../utils/colors.svelte";
   import RendererImage from "./RendererImage.svelte";
 
-  export let data;
+  /** @type {{data: any, children?: import('svelte').Snippet}} */
+  let { data, children } = $props();
 
   // console.group("CHILD FRAME");
   // console.log(data);
@@ -57,7 +58,7 @@
   {#if data.type === "RECTANGLE" && data?.fills[0]?.type === "IMAGE"}
     <RendererImage {data} />
   {:else}
-    <slot />
+    {@render children?.()}
   {/if}
 </div>
 

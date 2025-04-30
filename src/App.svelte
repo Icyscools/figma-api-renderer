@@ -1,8 +1,8 @@
 <script>
   import { setContext } from "svelte";
   import RendererMainFrame from "./components/RendererMainFrame.svelte";
-  export let projectId;
-  export let figmaToken;
+  /** @type {{projectId: any, figmaToken: any}} */
+  let { projectId, figmaToken } = $props();
 
   setContext("figma-api", {
     projectId,
@@ -16,7 +16,7 @@
         headers: {
           "X-Figma-Token": figmaToken,
         },
-      }
+      },
     );
 
     if (response.ok) {

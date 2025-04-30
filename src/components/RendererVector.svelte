@@ -1,6 +1,7 @@
 <script>
   import { getColor } from "../utils/colors.svelte";
-  export let data;
+  /** @type {{data: any}} */
+  let { data } = $props();
 
   let boundingBox = data.absoluteBoundingBox;
 

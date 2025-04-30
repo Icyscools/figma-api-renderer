@@ -2,12 +2,10 @@
   import { setContext } from "svelte";
   import RendererType from "./RendererType.svelte";
 
-  export let data;
-
   // canvas id
-  export let CANVAS_ID = 0;
   // frame id
-  export let FRAME_ID = 0;
+  /** @type {{data: any, CANVAS_ID?: number, FRAME_ID?: number}} */
+  let { data, CANVAS_ID = 0, FRAME_ID = 0 } = $props();
 
   setContext("main-frame", {
     getMainFrameBoundingBox: () => frameBox,
